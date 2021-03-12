@@ -121,6 +121,7 @@ rec {
         shell.ghc
         plutus.haskell-language-server
         plutus.cabal-install
+        pkgs.binutils-unwrapped
         pkgs.zsh
         pkgs.numactl
       ];
