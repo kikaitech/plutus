@@ -1,10 +1,12 @@
-{-# LANGUAGE DataKinds         #-}
-{-# LANGUAGE DeriveAnyClass    #-}
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE DerivingVia       #-}
-{-# LANGUAGE LambdaCase        #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeApplications  #-}
+{-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE DeriveAnyClass       #-}
+{-# LANGUAGE DeriveGeneric        #-}
+{-# LANGUAGE DerivingVia          #-}
+{-# LANGUAGE FlexibleContexts     #-}
+{-# LANGUAGE LambdaCase           #-}
+{-# LANGUAGE OverloadedStrings    #-}
+{-# LANGUAGE TypeApplications     #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 -- | PAB Log messages and instances
 module Plutus.PAB.Monitoring.PABLogMsg(
@@ -16,7 +18,8 @@ module Plutus.PAB.Monitoring.PABLogMsg(
     MockServerLogMsg,
     AppMsg(..),
     CoreMsg(..),
-    PABMultiAgentMsg(..)
+    PABMultiAgentMsg(..),
+    ContractEffectMsg(..),
     ) where
 
 import           Data.Aeson                              (FromJSON, ToJSON)
@@ -26,13 +29,17 @@ import           Data.Time.Units                         (Second)
 import           GHC.Generics                            (Generic)
 
 import           Cardano.BM.Data.Tracer                  (ToObject (..), TracingVerbosity (..))
-import           Cardano.BM.Data.Tracer.Extras           (Tagged (..), mkObjectStr)
+import           Cardano.BM.Data.Tracer.Extras           (StructuredLog, Tagged (..), mkObjectStr)
 import           Cardano.ChainIndex.Types                (ChainIndexServerMsg)
 import           Cardano.Metadata.Types                  (MetadataLogMessage)
 import           Cardano.Node.Types                      (MockServerLogMsg)
 import           Cardano.Wallet.Types                    (WalletMsg)
+import qualified Data.Aeson                              as JSON
+import qualified Data.Text                               as T
+import           Language.Plutus.Contract.State          (ContractRequest)
 import           Ledger.Tx                               (Tx)
--- import           Plutus.PAB.Core.ContractInstance        (ContractInstanceMsg (..))
+import           Plutus.PAB.Core.ContractInstance        (ContractInstanceMsg (..))
+import           Plutus.PAB.Effects.Contract             (PABContract (..))
 import           Plutus.PAB.Effects.Contract.ContractExe (ContractExe, ContractExeLogMsg (..))
 import           Plutus.PAB.Effects.ContractRuntime      (ContractRuntimeMsg)
 import           Plutus.PAB.Events.Contract              (ContractInstanceId, ContractPABRequest)
@@ -40,6 +47,7 @@ import           Plutus.PAB.Events.ContractInstanceState (PartiallyDecodedRespon
 import           Plutus.PAB.Instances                    ()
 import           Plutus.PAB.Monitoring.MonadLoggerBridge (MonadLoggerMsg (..))
 import           Plutus.PAB.ParseStringifiedJSON         (UnStringifyJSONLog (..))
+import           Plutus.PAB.Webserver.Types              (WebSocketLogMsg)
 import           Wallet.Emulator.MultiAgent              (EmulatorEvent)
 import           Wallet.Emulator.Wallet                  (WalletEvent (..))
 
@@ -177,9 +185,8 @@ data PABMultiAgentMsg t =
     | CoreLog (CoreMsg t)
     | RuntimeLog ContractRuntimeMsg
     | UserLog T.Text
-    deriving Show
 
-instance Pretty PABMultiAgentMsg where
+instance (Pretty (ContractDef t), Pretty (State t), Pretty t) => Pretty (PABMultiAgentMsg t) where
     pretty = \case
         EmulatorMsg m         -> pretty m
         ContractMsg m         -> pretty m
