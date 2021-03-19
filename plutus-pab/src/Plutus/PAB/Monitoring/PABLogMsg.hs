@@ -185,6 +185,8 @@ data PABMultiAgentMsg t =
     | CoreLog (CoreMsg t)
     | RuntimeLog ContractRuntimeMsg
     | UserLog T.Text
+    | StartingPABBackendServer Int
+    | StartingMetadataServer Int
 
 instance (Pretty (ContractDef t), Pretty (State t), Pretty t) => Pretty (PABMultiAgentMsg t) where
     pretty = \case
@@ -196,6 +198,10 @@ instance (Pretty (ContractDef t), Pretty (State t), Pretty t) => Pretty (PABMult
         CoreLog m             -> pretty m
         RuntimeLog m          -> pretty m
         UserLog m             -> pretty m
+        StartingPABBackendServer port ->
+            "Starting PAB backend server on port:" <+> pretty port
+        StartingMetadataServer port ->
+            "Starting metadata server on port:" <+> pretty port
 
 data CoreMsg t =
     Installing t
