@@ -104,9 +104,18 @@ rec {
   # FIXME: this should simply be set on the main shell derivation, but this breaks
   # lorri: https://github.com/target/lorri/issues/489. In the mean time, we set it
   # only on the CI version, so that we still catch it, but lorri doesn't see it.
-  shell = (import ./shell.nix { inherit packages; }).overrideAttrs (attrs: attrs // {
+  shell = (import ./shell.nix { }).overrideAttrs (attrs: attrs // {
     disallowedRequisites = [ plutus.haskell.packages.plutus-core.components.library ];
   });
+
+  # This is an evil hack to allow us to have a docker container with a "similar" environment to
+  # our haskell.nix shell without having it actually run nix-shell. In particular, we need some
+  # of the flags that the stdenv setup hooks set based on the build inputs, like NIX_LDFLAGS.
+  # The result of this derivation is a file that can be sourced to set the variables we need.
+  horrible-env-vars-hack = pkgs.runCommand "exfiltrate-env-vars" { inherit (shell) nativeBuildInputs buildInputs propagatedBuildInputs; } ''
+    #export -p | grep -E "NIX_LDFLAGS|NIX_CLFAGS_COMPILE|PKG_CONFIG_PATH" >> $out
+    export -p >> $out
+  '';
 
   # WIP to make a VS Code devcontainer that can be used for working on plutus code
   #   docker load < $(nix-build --system x86_64-linux -A devcontainer)
@@ -116,14 +125,17 @@ rec {
     pkgs.callPackage (import ./devcontainer) {
       name = "plutus-devcontainer";
       tag = "latest";
-      nixpkgsPath = pkgs.path;
       extraContents = [
         shell.ghc
         plutus.haskell-language-server
         plutus.cabal-install
-        pkgs.binutils-unwrapped
+        pkgs.binutils
         pkgs.zsh
         pkgs.numactl
       ];
+      extraCommands = ''
+        chmod +w root
+        cat ${horrible-env-vars-hack} >> root/.bashrc
+      '';
     };
 }

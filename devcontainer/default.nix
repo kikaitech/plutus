@@ -1,7 +1,7 @@
 { name ? "devcontainer"
 , tag ? null
-, nixpkgsPath ? ./fake_nixpkgs
 , extraContents ? [ ]
+, extraCommands ? ""
 , dockerTools
 , bashInteractive
 , cacert
@@ -28,7 +28,7 @@
 , xz
 }:
 let
-  image = dockerTools.buildImageWithNixDb {
+  image = dockerTools.buildImage {
     inherit name tag;
 
     contents = [
@@ -41,7 +41,6 @@ let
 
       # add /bin/sh
       bashInteractive
-      nix
 
       # runtime dependencies of nix
       cacert
@@ -78,17 +77,14 @@ let
       ln -s ${glibc}/lib64/ld-linux-x86-64.so.2 lib64/ld-linux-x86-64.so.2
       ln -s ${gcc-unwrapped.lib}/lib64/libstdc++.so.6 lib64/libstdc++.so.6
       chmod -w lib64
-    '';
+
+    '' + extraCommands;
 
     config = {
       Cmd = [ "/bin/bash" ];
       Env = [
-        "ENV=/etc/profile.d/nix.sh"
         "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
-        "LD_LIBRARY_PATH=${gcc-unwrapped.lib}/lib64"
-        "BASH_ENV=/etc/profile.d/nix.sh"
-        "NIX_BUILD_SHELL=/bin/bash"
-        "NIX_PATH=nixpkgs=${nixpkgsPath}"
+        #"LD_LIBRARY_PATH=${gcc-unwrapped.lib}/lib64"
         "PAGER=less"
         "PATH=/usr/bin:/bin"
         "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
