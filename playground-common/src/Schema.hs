@@ -216,6 +216,9 @@ instance ToArgument Int where
 instance ToSchema Integer where
     toSchema = FormSchemaInteger
 
+instance ToSchema Double where
+    toSchema = FormSchemaInteger -- FIXME!
+
 instance ToArgument Integer where
     toArgument = Fix . FormIntegerF . Just
 

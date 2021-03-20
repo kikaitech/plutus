@@ -1,6 +1,8 @@
 { pkgs, gitignore-nix, set-git-rev, haskell, webCommon, webCommonPlutus, buildPursPackage, buildNodeModules, filterNpm }:
 let
-  server-invoker = set-git-rev haskell.packages.plutus-pab.components.exes.plutus-pab;
+  pab-exes = haskell.packages.plutus-pab.components.exes;
+
+  server-invoker = set-git-rev pab-exes.plutus-pab;
 
   generated-purescript = pkgs.runCommand "plutus-pab-purescript" { } ''
     mkdir $out
@@ -68,8 +70,6 @@ let
       packages = pkgs.callPackage ./packages.nix { };
       spagoPackages = pkgs.callPackage ./spago-packages.nix { };
     };
-
-  pab-exes = haskell.packages.plutus-pab.components.exes;
 
   demo-scripts = pkgs.callPackage ./pab-demo-scripts.nix { inherit client pab-exes; };
 

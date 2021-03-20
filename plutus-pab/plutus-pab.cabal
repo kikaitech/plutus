@@ -236,56 +236,6 @@ executable plutus-pab
         contra-tracer -any,
         lobemo-backend-ekg -any
 
-executable plutus-game
-    main-is: Main.hs
-    hs-source-dirs: game-contract
-    other-modules:
-    default-language: Haskell2010
-    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Wcompat
-                 -Wincomplete-uni-patterns -Wincomplete-record-updates
-                 -Wno-missing-import-lists -Wredundant-constraints -O0
-    build-depends:
-        base >=4.9 && <5,
-        plutus-pab,
-        plutus-use-cases -any
-
-executable plutus-currency
-    main-is: Main.hs
-    hs-source-dirs: currency-contract
-    default-language: Haskell2010
-    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Wcompat
-                 -Wincomplete-uni-patterns -Wincomplete-record-updates
-                 -Wno-missing-import-lists -Wredundant-constraints -O0
-    build-depends:
-        base >=4.9 && <5,
-        plutus-pab,
-        plutus-use-cases -any,
-        text -any
-
-executable plutus-atomic-swap
-    main-is: Main.hs
-    hs-source-dirs: atomic-swap-contract
-    default-language: Haskell2010
-    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Wcompat
-                 -Wincomplete-uni-patterns -Wincomplete-record-updates
-                 -Wno-missing-import-lists -Wredundant-constraints -O0
-    build-depends:
-        base >=4.9 && <5,
-        text -any,
-        plutus-pab
-
-executable plutus-pay-to-wallet
-    main-is: Main.hs
-    hs-source-dirs: pay-to-wallet-contract
-    default-language: Haskell2010
-    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Wcompat
-                 -Wincomplete-uni-patterns -Wincomplete-record-updates
-                 -Wno-missing-import-lists -Wredundant-constraints -O0
-    build-depends:
-        base >=4.9 && <5,
-        plutus-pab,
-        text -any
-
 test-suite plutus-pab-test
     default-language: Haskell2010
     hs-source-dirs: test
@@ -330,74 +280,13 @@ test-suite plutus-pab-test
         prettyprinter -any,
         row-types -any
 
-executable prism-credential-manager
+executable indigo-mint
     import: lang
     main-is: Main.hs
-    hs-source-dirs: prism/credential-manager
+    hs-source-dirs: indigo/mint
     default-language: Haskell2010
     build-depends:
         base >=4.9 && <5,
         plutus-pab,
         plutus-use-cases -any,
         plutus-contract -any
-
-executable prism-mirror
-    import: lang
-    main-is: Main.hs
-    hs-source-dirs: prism/mirror
-    default-language: Haskell2010
-    build-depends:
-        base >=4.9 && <5,
-        plutus-pab,
-        plutus-use-cases -any,
-        plutus-contract -any
-
-executable prism-unlock-sto
-    import: lang
-    main-is: Main.hs
-    hs-source-dirs: prism/unlock-sto
-    default-language: Haskell2010
-    build-depends:
-        base >=4.9 && <5,
-        plutus-pab,
-        plutus-use-cases -any,
-        plutus-contract -any
-
-executable prism-unlock-exchange
-    import: lang
-    main-is: Main.hs
-    hs-source-dirs: prism/unlock-exchange
-    default-language: Haskell2010
-    build-depends:
-        base >=4.9 && <5,
-        plutus-pab,
-        plutus-use-cases -any,
-        plutus-contract -any
-
-executable tx-inject
-    import: lang
-    main-is: Main.hs
-    hs-source-dirs: tx-inject
-    default-language: Haskell2010
-    build-depends:
-        base >=4.9 && <5,
-        plutus-pab,
-        containers -any,
-        clock -any,
-        deepseq -any,
-        http-client -any,
-        http-conduit -any,
-        lens -any,
-        mwc-random -any,
-        optparse-applicative -any,
-        plutus-contract -any,
-        plutus-ledger -any,
-        plutus-tx -any,
-        pretty-simple -any,
-        rate-limit -any,
-        servant-client -any,
-        signal -any,
-        stm -any,
-        text -any,
-        time-units -any,
-        yaml -any

@@ -25,15 +25,7 @@
 , lib
 }:
 let
-  inherit (pab-exes)
-    plutus-game
-    plutus-currency
-    plutus-atomic-swap
-    plutus-pay-to-wallet
-    prism-credential-manager
-    prism-mirror
-    prism-unlock-sto
-    prism-unlock-exchange;
+  inherit (pab-exes) indigo-mint;
 
   mkConf = pkgs.callPackage ./config.nix { };
 
@@ -101,14 +93,7 @@ let
     cat $CFG_PATH
     echo "-----------------------------------------------------------------------------"
 
-    ${pab} --config=$CFG_PATH contracts install --path ${plutus-currency}/bin/plutus-currency
-    ${pab} --config=$CFG_PATH contracts install --path ${plutus-atomic-swap}/bin/plutus-atomic-swap
-    ${pab} --config=$CFG_PATH contracts install --path ${plutus-game}/bin/plutus-game
-    ${pab} --config=$CFG_PATH contracts install --path ${plutus-pay-to-wallet}/bin/plutus-pay-to-wallet
-    ${pab} --config=$CFG_PATH contracts install --path ${prism-credential-manager}/bin/prism-credential-manager
-    ${pab} --config=$CFG_PATH contracts install --path ${prism-mirror}/bin/prism-mirror
-    ${pab} --config=$CFG_PATH contracts install --path ${prism-unlock-sto}/bin/prism-unlock-sto
-    ${pab} --config=$CFG_PATH contracts install --path ${prism-unlock-exchange}/bin/prism-unlock-exchange
+    ${pab} --config=$CFG_PATH contracts install --path ${indigo-mint}/bin/indigo-mint
     ${pab} --config=$CFG_PATH ${cmd}
   '';
 

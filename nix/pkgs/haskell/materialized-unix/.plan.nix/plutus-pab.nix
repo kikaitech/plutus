@@ -223,131 +223,21 @@
           modules = [ "PSGenerator" "Cli" "Command" "CommandParser" ];
           hsSourceDirs = [ "app" ];
           mainPath = [ "Main.hs" ];
-          };
-        "plutus-game" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."plutus-use-cases" or (errorHandler.buildDepError "plutus-use-cases"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "game-contract" ];
-          mainPath = [ "Main.hs" ];
-          };
-        "plutus-currency" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."plutus-use-cases" or (errorHandler.buildDepError "plutus-use-cases"))
-            (hsPkgs."text" or (errorHandler.buildDepError "text"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "currency-contract" ];
-          mainPath = [ "Main.hs" ];
-          };
-        "plutus-atomic-swap" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."text" or (errorHandler.buildDepError "text"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "atomic-swap-contract" ];
-          mainPath = [ "Main.hs" ];
-          };
-        "plutus-pay-to-wallet" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."text" or (errorHandler.buildDepError "text"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "pay-to-wallet-contract" ];
-          mainPath = [ "Main.hs" ];
-          };
-        "prism-credential-manager" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."plutus-use-cases" or (errorHandler.buildDepError "plutus-use-cases"))
-            (hsPkgs."plutus-contract" or (errorHandler.buildDepError "plutus-contract"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "prism/credential-manager" ];
-          mainPath = [
-            "Main.hs"
-            ] ++ (pkgs.lib).optional (flags.defer-plugin-errors) "";
-          };
-        "prism-mirror" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."plutus-use-cases" or (errorHandler.buildDepError "plutus-use-cases"))
-            (hsPkgs."plutus-contract" or (errorHandler.buildDepError "plutus-contract"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "prism/mirror" ];
-          mainPath = [
-            "Main.hs"
-            ] ++ (pkgs.lib).optional (flags.defer-plugin-errors) "";
-          };
-        "prism-unlock-sto" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."plutus-use-cases" or (errorHandler.buildDepError "plutus-use-cases"))
-            (hsPkgs."plutus-contract" or (errorHandler.buildDepError "plutus-contract"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "prism/unlock-sto" ];
-          mainPath = [
-            "Main.hs"
-            ] ++ (pkgs.lib).optional (flags.defer-plugin-errors) "";
-          };
-        "prism-unlock-exchange" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."plutus-use-cases" or (errorHandler.buildDepError "plutus-use-cases"))
-            (hsPkgs."plutus-contract" or (errorHandler.buildDepError "plutus-contract"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "prism/unlock-exchange" ];
-          mainPath = [
-            "Main.hs"
-            ] ++ (pkgs.lib).optional (flags.defer-plugin-errors) "";
-          };
-        "tx-inject" = {
-          depends = [
-            (hsPkgs."base" or (errorHandler.buildDepError "base"))
-            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
-            (hsPkgs."containers" or (errorHandler.buildDepError "containers"))
-            (hsPkgs."clock" or (errorHandler.buildDepError "clock"))
-            (hsPkgs."deepseq" or (errorHandler.buildDepError "deepseq"))
-            (hsPkgs."http-client" or (errorHandler.buildDepError "http-client"))
-            (hsPkgs."http-conduit" or (errorHandler.buildDepError "http-conduit"))
-            (hsPkgs."lens" or (errorHandler.buildDepError "lens"))
-            (hsPkgs."mwc-random" or (errorHandler.buildDepError "mwc-random"))
-            (hsPkgs."optparse-applicative" or (errorHandler.buildDepError "optparse-applicative"))
-            (hsPkgs."plutus-contract" or (errorHandler.buildDepError "plutus-contract"))
-            (hsPkgs."plutus-ledger" or (errorHandler.buildDepError "plutus-ledger"))
-            (hsPkgs."plutus-tx" or (errorHandler.buildDepError "plutus-tx"))
-            (hsPkgs."pretty-simple" or (errorHandler.buildDepError "pretty-simple"))
-            (hsPkgs."rate-limit" or (errorHandler.buildDepError "rate-limit"))
-            (hsPkgs."servant-client" or (errorHandler.buildDepError "servant-client"))
-            (hsPkgs."signal" or (errorHandler.buildDepError "signal"))
-            (hsPkgs."stm" or (errorHandler.buildDepError "stm"))
-            (hsPkgs."text" or (errorHandler.buildDepError "text"))
-            (hsPkgs."time-units" or (errorHandler.buildDepError "time-units"))
-            (hsPkgs."yaml" or (errorHandler.buildDepError "yaml"))
-            ];
-          buildable = true;
-          hsSourceDirs = [ "tx-inject" ];
-          mainPath = [
-            "Main.hs"
-            ] ++ (pkgs.lib).optional (flags.defer-plugin-errors) "";
-          };
         };
+        "indigo-mint" = {
+          depends = [
+            (hsPkgs."base" or (errorHandler.buildDepError "base"))
+            (hsPkgs."plutus-pab" or (errorHandler.buildDepError "plutus-pab"))
+            (hsPkgs."plutus-use-cases" or (errorHandler.buildDepError "plutus-use-cases"))
+            (hsPkgs."plutus-contract" or (errorHandler.buildDepError "plutus-contract"))
+          ];
+          buildable = true;
+          hsSourceDirs = [ "indigo/mint" ];
+          mainPath = [
+            "Main.hs"
+          ] ++ (pkgs.lib).optional (flags.defer-plugin-errors) "";
+        };
+      };
       tests = {
         "plutus-pab-test" = {
           depends = [

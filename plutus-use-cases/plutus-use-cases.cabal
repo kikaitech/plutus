@@ -34,6 +34,7 @@ library
         Plutus.Contracts.Future
         Plutus.Contracts.Game
         Plutus.Contracts.GameStateMachine
+        Plutus.Contracts.Indigo.Mint
         Plutus.Contracts.ErrorHandling
         Plutus.Contracts.MultiSig
         Plutus.Contracts.MultiSigStateMachine
