@@ -8,6 +8,7 @@ import Data.BigInteger as BigInteger
 import Data.Functor.Foldable (Fix(..))
 import Data.FunctorWithIndex (mapWithIndex)
 import Data.Int as Int
+import Data.Number as Number
 import Data.Json.JsonTuple (JsonTuple(..))
 import Data.Lens (Lens', over, set, view)
 import Data.Maybe (Maybe(..), fromMaybe, maybe)
@@ -76,7 +77,7 @@ actionArgumentField ancestors _ arg@(Fix (FormIntF n)) =
         , value $ maybe "" show n
         , required true
         , placeholder "Int"
-        , onValueInput (Just <<< SetField <<< SetIntField <<< Int.fromString)
+        , onValueInput (Just <<< SetField <<< SetIntField <<< Number.fromString)
         ]
     , validationFeedback (joinPath ancestors <$> validate arg)
     ]
@@ -90,6 +91,19 @@ actionArgumentField ancestors _ arg@(Fix (FormIntegerF n)) =
         , required true
         , placeholder "Integer"
         , onValueInput (Just <<< SetField <<< SetBigIntegerField <<< BigInteger.fromString)
+        ]
+    , validationFeedback (joinPath ancestors <$> validate arg)
+    ]
+
+actionArgumentField ancestors _ arg@(Fix (FormDoubleF n)) =
+  div_
+    [ input
+        [ type_ InputNumber
+        , classes (Array.cons formControl (actionArgumentClass ancestors))
+        , value $ maybe "" show n
+        , required true
+        , placeholder "Double"
+        , onValueInput (Just <<< SetField <<< SetNumberField <<< Number.fromString)
         ]
     , validationFeedback (joinPath ancestors <$> validate arg)
     ]

@@ -57,6 +57,7 @@ instance showFormEvent :: Show FormEvent where
 data FieldEvent
   = SetIntField (Maybe Int)
   | SetBigIntegerField (Maybe BigInteger)
+  | SetNumberField (Maybe Number)
   | SetBoolField Boolean
   | SetStringField String
   | SetHexField String
@@ -104,6 +105,8 @@ toArgument initialValue = ana algebra
 
   algebra FormSchemaInteger = FormIntegerF Nothing
 
+  algebra FormSchemaDouble = FormDoubleF Nothing
+
   -- text inputs cannot distinguish between `Nothing` and `Just ""` -
   -- use the latter as the default value, or validation behaves weirdly
   algebra FormSchemaString = FormStringF (Just "")
@@ -144,6 +147,8 @@ formArgumentToJson = cata algebra
   algebra (FormIntF n) = encode <$> n
 
   algebra (FormIntegerF n) = encode <$> n
+
+  algebra (FormDoubleF n) = encode <$> n
 
   algebra (FormStringF str) = encode <$> str
 
@@ -205,6 +210,8 @@ handleFormEvent initialValue event = cata (Fix <<< algebra event)
   algebra (SetField (SetIntField n)) (FormIntF _) = FormIntF n
 
   algebra (SetField (SetBigIntegerField n)) (FormIntegerF _) = FormIntegerF n
+
+  algebra (SetField (SetNumberField n)) (FormDoubleF _) = FormDoubleF n
 
   algebra (SetField (SetBoolField n)) (FormBoolF _) = FormBoolF n
 
