@@ -3,11 +3,11 @@
     "cardano-repo-tool": {
       "flake": false,
       "locked": {
-        "lastModified": 1617222828,
-        "narHash": "sha256-DGIPO80BoXM0t5mY2IlvflyN/XFwzkSjBsCnCJsRszs=",
+        "lastModified": 1624584417,
+        "narHash": "sha256-YSepT97PagR/1jTYV/Yer8a2GjFe9+tTwaTCHxuK50M=",
         "owner": "input-output-hk",
         "repo": "cardano-repo-tool",
-        "rev": "71b1333552989093a89e6b04c5397f0b7bb9d0d0",
+        "rev": "30e826ed8f00e3e154453b122a6f3d779b2f73ec",
         "type": "github"
       },
       "original": {
@@ -19,11 +19,11 @@
     "easy-purescript-nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1614069378,
-        "narHash": "sha256-OGLWGzLEnBsnX/4gW15Je5Z6EGrrq1AoSfniaOsSr0s=",
+        "lastModified": 1629978730,
+        "narHash": "sha256-JSMS44U61X7+a3361XvIjRGqLRcouFMM8qEtM5A3Ai8=",
         "owner": "justinwoo",
         "repo": "easy-purescript-nix",
-        "rev": "c2e49b4a94ee55df294212c561f2ac7225a8ebbf",
+        "rev": "d0f592b71b2be222f8dcfb4f4cefb52608bbc1ae",
         "type": "github"
       },
       "original": {
@@ -153,11 +153,11 @@
     "npmlock2nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1624882916,
-        "narHash": "sha256-Bfumd24xNLAX1UjnqNHN1hZg1qpwubAvIRFDneruO+I=",
+        "lastModified": 1629559065,
+        "narHash": "sha256-yfa0/v7cN1cO2KmTUo6SJVJ+ke2NA8EYcA/1kw7+v5Q=",
         "owner": "tweag",
         "repo": "npmlock2nix",
-        "rev": "9d71a0fc7a7450e740dba1bcdaed1eb9faa57bc2",
+        "rev": "4ac13bfffcbb76b9e41701e4822808d2061b73b3",
         "type": "github"
       },
       "original": {
@@ -169,11 +169,11 @@
     "pre-commit-hooks-nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1622650193,
-        "narHash": "sha256-qSzUpJDv04ajS9FXoCq6NjVF3qOt9IiGIiGh0P8amyw=",
+        "lastModified": 1624971177,
+        "narHash": "sha256-Amf/nBj1E77RmbSSmV+hg6YOpR+rddCbbVgo5C7BS0I=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "0398f0649e0a741660ac5e8216760bae5cc78579",
+        "rev": "397f0713d007250a2c7a745e555fa16c5dc8cadb",
         "type": "github"
       },
       "original": {
@@ -203,11 +203,11 @@
     "spago2nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1620480713,
-        "narHash": "sha256-gvewQhhrK9FODgFWVMxZ//gsXB/O7/D7mY7D1PG/9ew=",
+        "lastModified": 1628161480,
+        "narHash": "sha256-oTBdCpCJmuMQ6nYR1+tamL9xDPm720dRVxsKtKOzTfs=",
         "owner": "justinwoo",
         "repo": "spago2nix",
-        "rev": "a4622c3b27fca47e3276131a8ec4097a1d3c78a7",
+        "rev": "da4a833b53f9139e596f89ad89d892f4f60fc179",
         "type": "github"
       },
       "original": {
